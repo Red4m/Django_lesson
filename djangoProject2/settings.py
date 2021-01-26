@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-    'user_profile'
+    'user_profile',
+    # 'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -124,4 +125,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+
+# CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'pictures')
+# MEDIA_URL = '/static/'
+#
+# LOGIN_REDIRECT_URL = 'home'
 

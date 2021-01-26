@@ -39,10 +39,28 @@
             <div class="card-body">
                 <p class="card-title">Телефон: {{ user.profile.phone }}</p>
                 <p class="card-text">Страна: {{ user.profile.country }}</p>
+                <p class="card-text">firstname: {{ user.first_name }}</p>
+                <p class="card-text">lastname: {{ user.last_name }}</p>
                 <a href="/{{ user.username }}/edit/" class="btn btn-primary">edit</a>
                 <a href="/{{ user.username }}/delete/" class="btn btn-primary">delete</a>
                 <a href="/articles/" class="btn btn-primary">articles</a>
+                <a href="/registration" class="btn btn-primary">registration</a>
+                <br>
+
             </div>
+        </div>
+
+        <div class="card" style="width: 18rem;">
+
+          <div class="card-body">
+            {% for article in articles %}
+                <img src="https://s1.1zoom.ru/big0/697/Love_Night_Moon_Trees_Silhouette_Two_Dating_576752_1280x853.jpg" class="card-img-top" alt="...">
+                <h5 class="card-title">{{ article.title}}</h5>
+                <p class="card-text">{{ article.content }}</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <hr>
+            {% endfor %}
+          </div>
         </div>
 
 {#        <button type="button" class="btn btn-dark">#}

@@ -1,51 +1,72 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
+from django.views.generic import TemplateView, ListView, DetailView
 
 from home.models import Article
 
 
-def home(request):
-    return HttpResponse("<b>Hello</b> world")
+# def home(request):
+#     return HttpResponse("<b>Hello</b> world")
+#
+#
+# def age(request):
+#     return HttpResponse("age")
+#
+#
+# def user(request):
+#     return HttpResponse(f"igor is user ")
+#
+#
+# def username(request, username):
+#     return HttpResponse(f"chvyrov {username}")
+#
+#
+# def debug(request):
+#     # import pdb; pdb.set_trace()
+#     page = request.GET.get('page')
+#     return HttpResponse(f"debugger page {page}")
 
 
-def age(request):
-    return HttpResponse("age")
+# @login_required
+# def all_articles(request):
+#     print(request.user.username)
+#     if request.user.is_authenticated:
+#         articles = Article.objects.all()
+#         return render(
+#             request, "article.html", {"articles": articles},
+#         )
+#     else:
+#         return HttpResponse(f"You are not logged in", 404)
 
 
-def user(request):
-    return HttpResponse(f"igor is user ")
+# def get_article(request, pk):
+#     article = get_object_or_404(Article, pk=pk)
+#     # article = Article.objects.get(pk=pk)
+#     # return HttpResponse(article)
+#     return render(
+#         request, "one_article.html", {"article": article},
+#     )
+class ArticleListView(ListView):
+    model = Article
+    template_name = "article.html"
+    ordering = "title"
+    context_object_name = "articles"
 
 
-def username(request, username):
-    return HttpResponse(f"chvyrov {username}")
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = "one_article.html"
+    pk_url_kwarg = "pk"
+    context_object_name = "article"
 
-
-def debug(request):
-    # import pdb; pdb.set_trace()
-    page = request.GET.get('page')
-    return HttpResponse(f"debugger page {page}")
-
-
-@login_required
-def all_articles(request):
-    print(request.user.username)
-    if request.user.is_authenticated:
-        articles = Article.objects.all()
-        return render(
-            request, "article.html", {"articles": articles},
-        )
-    else:
-        return HttpResponse(f"You are not logged in", 404)
-
-
-def get_article(request, pk):
-    article = get_object_or_404(Article, pk=pk)
-    # article = Article.objects.get(pk=pk)
-    # return HttpResponse(article)
-    return render(
-        request, "one_article.html", {"article": article},
-    )
+# class GetArticleView(TemplateView):
+#     template_name = "one_article.html"
+#
+#     def get_context_data(self, pk, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['article'] = get_object_or_404(Article, pk=pk)
+#         return context
 
 
 def edit_article(request, pk):

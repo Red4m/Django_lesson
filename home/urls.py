@@ -7,18 +7,18 @@ from home import views
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
-    path('name/', views.user, name='name'),
+    # path('', views.home, name='home'),
+    # path('name/', views.user, name='name'),
+    #
+    # path('age/', views.age, name='age'),
+    # path('debug/', views.debug, name="debug"),
+    #
+    #
+    # path('gena/', views.user, name="petr"),
 
-    path('age/', views.age, name='age'),
-    path('debug/', views.debug, name="debug"),
+    path('articles/', views.ArticleListView.as_view(), name="articles"),
 
-
-    path('gena/', views.user, name="petr"),
-
-    path('articles/', views.all_articles, name="articles"),
-
-    path('articles/<int:pk>/', views.get_article, name="get_article"),
+    path('articles/<int:pk>/', views.ArticleDetailView.as_view(), name="get_article"),
     path('articles/<int:pk>/edit/', views.edit_article, name="edit_article")
 
 
