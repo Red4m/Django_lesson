@@ -3,23 +3,21 @@
 
 
 {% block title %}
-Product {{ article.title }}
 {% endblock %}
 
 
 {%block detail%}
-
 <div class="container">
     <div class="row">
-        {% for article in articles %}
+        {% for one_user in user %}
             <div class="col-6">
 {#                    <button type="button" class="btn-secondary btn-lg" data-bs-toggle="button" autocomplete="off">#}
-                <a type="button" class="btn btn-primary active" data-bs-toggle="button" autocomplete="off" aria-pressed="true" href="{% url 'get_article' pk=article.pk%}">
+                <a type="button" class="btn btn-primary active" data-bs-toggle="button" autocomplete="off" aria-pressed="true" href="{% url 'profile' username=one_user.username%}">
                     link
                 </a>
 {#                    </button>#}
     {#            <a href="{{ article.pk }}">link</a>#}
-                <b>{{ article.title }}</b> <br>
+                <b>{{ one_user.username }}</b> <br>
 {#                    <b>{{ article.content }}</b>#}
                 <hr>
             </div>
@@ -27,4 +25,3 @@ Product {{ article.title }}
     </div>
 </div>
 {%endblock%}
-<!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">-->

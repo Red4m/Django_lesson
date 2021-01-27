@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<link rel="stylesheet" href="/static/main.css">
-<body>
+{% extends 'base.html'%}
+{% load static %}
+
+
+{% block title %}
+Product {{ article.title }}
+{% endblock %}
+
+
+{%block detail%}
     <b>{{ article.title }}</b>
     <p>{{ article.content }}</p>
-    <a href="/edit/" class="btn btn-primary">edit</a>
-    <a href="..." class="btn btn-primary">behind</a>
-</body>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-</html>
+    <a href="{% url 'edit_article' pk=article.pk%}" class="btn btn-primary">edit</a>
+    <a href="{% url 'articles' %}" class="btn btn-primary">behind</a>
+{%endblock%}

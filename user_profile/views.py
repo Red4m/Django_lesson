@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, FormView, CreateView, \
-    DetailView, DeleteView, UpdateView
+    DetailView, DeleteView, UpdateView, ListView
 
 from home.models import Article
 from user_profile.forms import AuthUserForm, \
@@ -34,6 +34,12 @@ from django.contrib.auth import logout, authenticate, login
 #         context = super().get_context_data(**kwargs)
 #         context['user'] = get_object_or_404(User, username=username)
 #         return context
+
+class ProfileListView(ListView):
+    model = User
+    template_name = "all_profiles.html"
+    ordering = "username"
+    context_object_name = "user"
 
 
 class ProfileDetailView(DetailView):
