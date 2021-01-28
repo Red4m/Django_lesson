@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 
 from home.models import Article
 
@@ -69,14 +69,26 @@ class ArticleDetailView(DetailView):
 #         return context
 
 
-def edit_article(request, pk):
-    # print(request.POST)
-    article = get_object_or_404(Article, pk=pk)
-    if request.method == 'POST':
-        # article.pk = request.POST.get('pk')
-        article.title = request.POST.get('title')
-        article.content = request.POST.get('content')
-        article.save()
-    return render(
-        request, "edit_article.html", {"article": article},
-    )
+# def edit_article(request, pk):
+#     # print(request.POST)
+#     article = get_object_or_404(Article, pk=pk)
+#     if request.method == 'POST':
+#         # article.pk = request.POST.get('pk')
+#         article.title = request.POST.get('title')
+#         article.content = request.POST.get('content')
+#         article.save()
+#     return render(
+#         request, "edit_article.html", {"article": article},
+#     )
+
+
+class ArticleUpdateView(UpdateView):
+    model = Article
+    slug_field = "title"
+    slug_url_kwarg = "title"
+    template_name = "edit_article.html"
+    success_url = "/articles/"
+    context_object_name = "article"
+    fields = ['title', 'content', 'author']
+
+
