@@ -4,27 +4,44 @@ from django.urls import reverse
 from rest_framework import serializers
 
 from home.models import Article
+from user_profile.models import Profile
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Profile
+        fields = ['country', 'phone', 'birth_date', ]
 
 
 class ArticleSerializer(serializers.ModelSerializer):
     link = serializers.SerializerMethodField()
+    # profile = serializers.SerializerMethodField()
 
     class Meta:
         model = Article
-        fields = ['id', 'title', 'content', 'author', 'link']
+        fields = ['id', 'title', 'content', 'author', 'link',]
 
     def get_link(self, obj):
-        uri = reverse('get_article', kwargs={'pk': obj.pk})
+        uri = reverse('articles-detail', kwargs={'pk': obj.pk})
         return self.context['request'].build_absolute_uri(uri)
 
+    def update(self, instance, validated_data):
+        request = self.context.get('request')
+        user = request.use
+        if user.is_authenticated and instance.author_id == user.id:
+            return super(ArticleSerializer, self).update(instance, validated_data)
+        raise Exception('No credentials')
 
-class ProfileSerializer(serializers.ModelSerializer):
+
+class UserSerializer(serializers.ModelSerializer):
     articles = serializers.SerializerMethodField()
     link = serializers.SerializerMethodField()
+    profile = ProfileSerializer()
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'articles', 'link'
+        fields = ['id', 'username', 'articles', 'link', 'profile',
                   ]
 
     def get_articles(self, obj):
@@ -33,6 +50,8 @@ class ProfileSerializer(serializers.ModelSerializer):
         return s.data
 
     def get_link(self, obj):
-        uri = reverse('get_user', kwargs={'username': obj.username})
+        uri = reverse('users-detail', kwargs={'username': obj.username})
         return self.context['request'].build_absolute_uri(uri)
         # return f"http://localhost:8000{uri}"
+
+    # def save(self, **kwargs):
