@@ -39,10 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home',
     'user_profile',
-    # 'api',
     'rest_framework',
-    # 'crispy_forms',
-    'django_filters'
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -87,7 +85,12 @@ DATABASES = {
     }
 }
 
-
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     )
+# }
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
